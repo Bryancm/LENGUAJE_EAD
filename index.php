@@ -8,7 +8,7 @@ if ( isset($_POST['cadena']) ){
     $cadena = mysqli_real_escape_string($con,$_POST['cadena']);
     //$file = mysqli_real_escape_string($con,$_POST['file']);
     //$cadena = trim($cadena);
-    $cadena = trim($cadena,'\n');
+    $cadena = trim($cadena);
     //$cadena = str_replace('/\r\n/', " ", $cadena);
    // $cadena = preg_replace('/\r\r+/', ' ',$cadena);
     //$cadena = preg_replace('/\n/', '',$cadena);
@@ -33,10 +33,12 @@ if ( isset($_POST['cadena']) ){
     }*/
     $var = $cadena; 
     $token = array();
-    
-    $var = explode(" ", $var);
-    
-    
+    $renglon = explode('\n',$cadena);
+    var_dump($renglon);
+    for ($k=0; $k < count($renglon); $k++) { 
+        $c = trim($renglon[$k],'\r');
+        $var = explode(" ", $c);
+    //var_dump($var);
     for ($i=0; $i < count($var); $i++) { 
             //echo  '<h2>'.$var[$i].'</h2>';
         $estado = 0;
@@ -60,7 +62,7 @@ if ( isset($_POST['cadena']) ){
         //$stoken = $final['cat'].' ';
         
     }
-    
+    }
     for ($t=0; $t < count($token); $t++) { 
         $cadenaTokens = $cadenaTokens.' '.$token[$t];
     }   
