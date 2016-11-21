@@ -7,15 +7,17 @@ if ( isset($_POST['cadena']) ){
     
     $cadena = mysqli_real_escape_string($con,$_POST['cadena']);
     //$file = mysqli_real_escape_string($con,$_POST['file']);
-    $cadena = trim($cadena);
+    //$cadena = trim($cadena);
+    $cadena = trim($cadena,'\n');
+    //$cadena = str_replace('/\r\n/', " ", $cadena);
    // $cadena = preg_replace('/\r\r+/', ' ',$cadena);
-    $cadena = preg_replace('/\n/', '',$cadena);
+    //$cadena = preg_replace('/\n/', '',$cadena);
     //$cadena = preg_replace('/\r\r+/', '',$cadena);
     //$cadena = preg_replace('/\n',' ',$cadena);
     //$cadena = trim($cadena,'\n')
 
     //$cadena = preg_replace('/\s+/', ' ',trim($cadena2));
-    echo $cadena;
+    //echo $cadena;
    // $string = preg_replace('/\s+/', ' ', trim($string));
 
     /*if ( mysqli_query($con,
@@ -31,7 +33,9 @@ if ( isset($_POST['cadena']) ){
     }*/
     $var = $cadena; 
     $token = array();
-    //$var = explode(" ", $var);
+    
+    $var = explode(" ", $var);
+    
     
     for ($i=0; $i < count($var); $i++) { 
             //echo  '<h2>'.$var[$i].'</h2>';
