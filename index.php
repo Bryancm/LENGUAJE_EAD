@@ -9,8 +9,8 @@ if ( isset($_POST['cadena']) ){
 //asigna el valor del textarea a la variable cadena
     $cadena = mysqli_real_escape_string($con,$_POST['cadena']);
     //para quitar los espacios en blanco
-    $cadena = trim($cadena);
-
+    //$cadena = trim($cadena);
+    $cadena = trim(stripslashes($cadena));
     $var = $cadena; 
     $token = array();
 
