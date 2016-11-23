@@ -15,10 +15,11 @@ if ( isset($_POST['cadena']) ){
     $token = array();
 
     $renglon = explode('\n',$cadena);
-    //var_dump($renglon);
+    var_dump($renglon);
     for ($k=0; $k < count($renglon); $k++) { 
-        $c = trim($renglon[$k],'\r');
-        $var = explode(" ", $c);
+        $ca = trim($renglon[$k],'\r');
+        $var = explode(" ", $ca);
+        
     //var_dump($var);
     for ($i=0; $i < count($var); $i++) { 
             echo  '<h2>'.$var[$i].'</h2>';
