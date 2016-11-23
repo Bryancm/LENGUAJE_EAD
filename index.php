@@ -2,37 +2,18 @@
 include 'php/db.php';
 $errorMsg = "";
 $cadenaTokens = "";
-
+$a = "";
+$b = "";
+//verifica si hay texto en el textarea
 if ( isset($_POST['cadena']) ){
-    
+//asigna el valor del textarea a la variable cadena
     $cadena = mysqli_real_escape_string($con,$_POST['cadena']);
-    //$file = mysqli_real_escape_string($con,$_POST['file']);
-    //$cadena = trim($cadena);
+    //para quitar los espacios en blanco
     $cadena = trim($cadena);
-    //$cadena = str_replace('/\r\n/', " ", $cadena);
-   // $cadena = preg_replace('/\r\r+/', ' ',$cadena);
-    //$cadena = preg_replace('/\n/', '',$cadena);
-    //$cadena = preg_replace('/\r\r+/', '',$cadena);
-    //$cadena = preg_replace('/\n',' ',$cadena);
-    //$cadena = trim($cadena,'\n')
 
-    //$cadena = preg_replace('/\s+/', ' ',trim($cadena2));
-    //echo $cadena;
-   // $string = preg_replace('/\s+/', ' ', trim($string));
-
-    /*if ( mysqli_query($con,
-        "INSERT INTO cadenas 
-                SET cadena ='".$cadena."'") ) {
-        $errorMsg = '<div class="alert alert-success">
-        <i class="fa fa-check"></i> Cadena Enviada y Guardada en bd
-        </div>';
-    } else {
-        $errorMsg = '<div class="alert alert-danger">
-        <i class="fa fa-times"></i> Error, intenta nuevamente.
-        </div>';
-    }*/
     $var = $cadena; 
     $token = array();
+
     $renglon = explode('\n',$cadena);
     //var_dump($renglon);
     for ($k=0; $k < count($renglon); $k++) { 
@@ -40,7 +21,7 @@ if ( isset($_POST['cadena']) ){
         $var = explode(" ", $c);
     //var_dump($var);
     for ($i=0; $i < count($var); $i++) { 
-            //echo  '<h2>'.$var[$i].'</h2>';
+            echo  '<h2>'.$var[$i].'</h2>';
         $estado = 0;
         $varAux = strtolower($var[$i])/*.';'*/;
         
@@ -66,14 +47,17 @@ if ( isset($_POST['cadena']) ){
     for ($t=0; $t < count($token); $t++) { 
         $cadenaTokens = $cadenaTokens.' '.$token[$t];
     }   
-        
-        //array_push($token,);
 
-    /*$errorMsg = '<div class="alert alert-success">
-        <i class="fa fa-times"></i> '.$cadenaTokens.'
-        </div>';*/
 }
+if (isset($_POST['a'])) {
+    $a = mysqli_real_escape_string($con,$_POST['a']);
+    $b = mysqli_real_escape_string($con,$_POST['b']);
 
+    $aux = $a;
+    $a = $b;
+    $b = $aux;
+    
+}
 
 ?>
 <!DOCTYPE html>
@@ -108,7 +92,7 @@ if ( isset($_POST['cadena']) ){
                         <form action="" method="post" class="form-horizontal" name="lex">
                             <div class="form-group"><label class="col-sm-4 control-label">Capture su Linea de codigo</label>
                                 <div class="col-sm-8">
-                                    <div class="input-group"> <textarea contenteditable="true" cols="50" rows="10" type="text" class="form-control" name="cadena" id="cadena" required></textarea><span class="input-group-btn"><button type="submit" class="btn btn-primary"  > Verificar
+                                    <div class="input-group"> <textarea contenteditable="true" cols="50" rows="1" type="text" class="form-control" name="cadena" id="cadena" required></textarea><span class="input-group-btn"><button type="submit" class="btn btn-primary"  > Verificar
                                     </button> </span></div>
                                 </div>
                             </div>
@@ -130,21 +114,6 @@ if ( isset($_POST['cadena']) ){
             <div class="col-lg-6">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5> Archivo Cargado</h5>
-                    </div>
-                    <div class="ibox-content">
-                    <form action="" method="" name="lexfile" class="form-horizontal" >
-                    <!-- aqui imprime el resultado de el file reader -->
-                    <pre contenteditable="true" id="pre" name="file" ></pre>
-
-                    <button type="submit" class="btn btn-primary"  > Verificar </button>
-                    </div>
-                    </form>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
                         <h5>Palabras Reservadas</h5>
                     </div>
                     <div class="ibox-content">
@@ -157,6 +126,61 @@ if ( isset($_POST['cadena']) ){
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                     <div class="ibox-content">
+                        <form action="" method="POST">
+                         <label for=""> PROGRAMA 1</label>
+                          <div class=""><label class="col-sm-6 control-label">Capture el valor de la variable A</label>
+                            <div class="col-sm-6">
+                                <div class="input-group"> <input type="text" class="form-control" name="a" id="" required> <span class="input-group-btn"> </span></div>
+                            </div>
+                    </div>
+                    <div class=""><label class="col-sm-6 control-label">Capture el valor de la variable B</label>
+                        <div class="col-sm-6">
+                            <div class="input-group"> <input type="text" class="form-control" name="b" id="" required> <span class="input-group-btn"><button type="submit" class="btn btn-primary"  >  Capturar
+                            </button> </span></div>
+                        </div>
+                    </div>
+                    <label class="form-group" for=""> Resultado </label>
+                    <p><?php echo "A =".''.$a.' '."B =".''.$b ?></p>
+                     </div>
+                    
+                </div>
+            </div>
+            </form>
+            <div class="row">
+                <form action="" method='POST'>
+            <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                     <div class="ibox-content">
+                         <label for=""> PROGRAMA 2</label>
+                         <div class=""><label class="col-sm-6 control-label">Capture el valor de la tabla a multiplicar</label>
+                        <div class="col-sm-6">
+                            <div class="input-group"> <input type="text" class="form-control" name="num" id="" required> <span class="input-group-btn"> <button type="submit" class="btn btn-primary"  >  Capturar
+                            </button></span></div>
+                        </div>
+                    </div>
+                    <label for=""> RESULTADO</label>
+                    <p>
+                        <?php  if (isset($_POST['num'])) {
+                            $num = mysqli_real_escape_string($con,$_POST['num']);
+                            $tabla = "";
+                            for ($i=1; $i <= 10 ; $i++) { 
+                                $tabla = $num * $i;
+                                echo $num.''."*".''.$i.''."=".''.$tabla.''."<br>";
+                            }
+                        } ?>
+                     </div>
+                     
+                    </p>
+                </div>
+            </div>
+            </form>
+        </div>
         </div>
     </div> 
     <div class="footer">
