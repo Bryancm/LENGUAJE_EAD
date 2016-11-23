@@ -17,8 +17,8 @@ if ( isset($_POST['cadena']) ){
     $renglon = explode('\n',$cadena);
     var_dump($renglon);
     for ($k=0; $k < count($renglon); $k++) { 
-        $ca = trim($renglon[$k],'\r');
-        $var = explode(" ", $ca);
+        $c = trim($renglon[$k],'\r');
+        $var = explode(" ", $c);
         
     //var_dump($var);
     for ($i=0; $i < count($var); $i++) { 
