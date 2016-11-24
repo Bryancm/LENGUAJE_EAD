@@ -22,13 +22,11 @@ if ( isset($_POST['cadena']) ){
 //    var_dump($renglon);
     for ($k=0; $k < count($renglon); $k++) { 
         $c = trim($renglon[$k],'\r');
-        $ca = explode('"',$c);
+        //$ca = explode('"',$c);
         //print_r($ca);
      
         //echo strlen($c);
-        if($ca != null)
-        {
-                     for ($p=0; $p < strlen($c) ; $p++) 
+         for ($p=0; $p < strlen($c) ; $p++) 
                     { 
                         //var_dump($c);
                         if($c[$p] == '"')
@@ -58,7 +56,7 @@ if ( isset($_POST['cadena']) ){
                         }
                         //var_dump($c);
                     }
-        }
+
 
                    // var_dump($c);
                     //$c = trim(stripslashes($c));
