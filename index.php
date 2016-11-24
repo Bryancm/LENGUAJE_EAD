@@ -6,6 +6,8 @@ $a = "";
 $b = "";
 $pos1 = 0;
 $pos2 = 0;
+$aux2 = 0;
+$aux3 = 0;
 //verifica si hay texto en el textarea
 if ( isset($_POST['cadena']) ){
 //asigna el valor del textarea a la variable cadena
@@ -26,40 +28,40 @@ if ( isset($_POST['cadena']) ){
         //print_r($ca);
      
         //echo strlen($c);
-         for ($p=0; $p < strlen($c) ; $p++) 
-                    { 
+        for ($p=0; $p < strlen($c) ; $p++) 
+        { 
                         //var_dump($c);
-                        if($c[$p] == '"')
-                        {
-                            //var_dump($c);
-                            $pos1 = $p;
-                            $p = strlen($c);
-                        }
-                    }
-                    for ($m=$pos1 + 1; $m < strlen($c) ; $m++) 
-                    { 
-                        //var_dump($c);
-                        if($c[$m] == '"')
-                        {   
-                            //var_dump($c);
-                            $pos2 = $m;
-                            $m = strlen($c);
-                        }
-                    }
+
+            if($c[$p] == '"')
+            {
+                if($aux3 == 1)
+                {
+                    $pos1 = $aux2;
+                    $pos2 = $p;
                     for ($n=$pos1; $n < $pos2 ; $n++) 
                     { 
                         //var_dump($c);
                         //str_replace(' ', '', $c[$n]);
                         if($c[$n] == ' ')
                         {
-                            $c[$n] = preg_replace('[\s]',"", $c);
+                            $c[$n] = preg_replace('[\s+]',"", $c);
                         }
                         //var_dump($c);
                     }
+                }
+                $aux2 = $p;
+                $aux3 = 1;
+
+            }
 
 
-                   // var_dump($c);
-                    //$c = trim(stripslashes($c));
+        }
+
+
+
+
+                   //var_dump($c);
+                    $c = trim(stripslashes($c));
                 $var = explode(' ', $c);
 
             //$var = $var.''.$varc;
@@ -69,7 +71,7 @@ if ( isset($_POST['cadena']) ){
         
     //var_dump($var);
     for ($i=0; $i < count($var); $i++) { 
-           //echo  '<h2>'.$var[$i].'</h2>';
+           echo  '<h2>'.$var[$i].'</h2>';
         $estado = 0;
         $varAux = strtolower($var[$i])/*.';'*/;
         //print_r($var[1]);
