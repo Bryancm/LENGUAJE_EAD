@@ -4,28 +4,74 @@ $errorMsg = "";
 $cadenaTokens = "";
 $a = "";
 $b = "";
+$pos1 = 0;
+$pos2 = 0;
 //verifica si hay texto en el textarea
 if ( isset($_POST['cadena']) ){
 //asigna el valor del textarea a la variable cadena
     $cadena = mysqli_real_escape_string($con,$_POST['cadena']);
     //para quitar los espacios en blanco
-    //$cadena = trim($cadena);
-    $cadena = trim(stripslashes($cadena));
+    $cadena = trim($cadena);
+
+
+    //$cadena = trim(stripslashes($cadena));
     $var = $cadena; 
     $token = array();
-
+    $var =  array();
     $renglon = explode('\n',$cadena);
-    var_dump($renglon);
+//    var_dump($renglon);
     for ($k=0; $k < count($renglon); $k++) { 
         $c = trim($renglon[$k],'\r');
-        $var = explode(" ", $c);
+        //$ca = explode('"',$c);
+        //print_r($ca);
+     
+        //echo strlen($c);
+
+                    for ($p=0; $p < strlen($c) ; $p++) 
+                    { 
+                        //var_dump($c);
+                        if($c[$p] == '"')
+                        {
+                            //var_dump($c);
+                            $pos1 = $p;
+                            $p = strlen($c);
+                        }
+                    }
+                    for ($m=$pos1 + 1; $m < strlen($c) ; $m++) 
+                    { 
+                        //var_dump($c);
+                        if($c[$m] == '"')
+                        {   
+                            //var_dump($c);
+                            $pos2 = $m;
+                            $m = strlen($c);
+                        }
+                    }
+                    for ($n=$pos1; $n < $pos2 ; $n++) 
+                    { 
+                        //var_dump($c);
+                        //str_replace(' ', '', $c[$n]);
+                        if($c[$n] == ' ')
+                        {
+                            $c[$n] = preg_replace('[\s]',"", $c);
+                        }
+                        //var_dump($c);
+                    }
+                   // var_dump($c);
+                    //$c = trim(stripslashes($c));
+                $var = explode(' ', $c);
+
+            //$var = $var.''.$varc;
+            //print_r($var);
+        //echo  '<h2>'.$var.'</h2>';
+        //$var = explode(" ", $c);
         
     //var_dump($var);
     for ($i=0; $i < count($var); $i++) { 
-            echo  '<h2>'.$var[$i].'</h2>';
+           //echo  '<h2>'.$var[$i].'</h2>';
         $estado = 0;
         $varAux = strtolower($var[$i])/*.';'*/;
-        
+        //print_r($var[1]);
         for ($x=0; $x < strlen($varAux) ; $x++) { 
             $ascii      = ord($varAux[$x]);
             $consulta   = "SELECT l".$ascii." FROM matriz  where id=".$estado.' LIMIT 1';
